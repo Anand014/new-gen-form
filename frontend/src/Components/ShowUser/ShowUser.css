@@ -1,29 +1,11 @@
-.glasseffect {
+.glasseffectuser {
+  margin-top: 5%;
   background: rgb(231, 231, 231, 0.5);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
   backdrop-filter: blur(4.5px);
   -webkit-backdrop-filter: blur(4.5px);
   border-radius: 10px;
   border: 1px solid rgb(223, 222, 222);
-}
-#signinfrom {
-  height: 100vh;
-}
-
-.orangesvg {
-  position: absolute;
-  width: 10%;
-  top: 13.8%;
-  right: 56.5%;
-  /* transform: rotate(-45deg); */
-}
-
-.purplesvg {
-  position: absolute;
-  width: 10%;
-  top: 13.5%;
-  right: 33.5%;
-  /* transform: rotate(45deg); */
 }
 
 .formtext {

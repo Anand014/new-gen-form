@@ -12,12 +12,12 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
     },
-    currentJob: {
-      type: String,
-    },
-    description: {
-      type: String,
-    },
+    // currentJob: {
+    //   type: String,
+    // },
+    // description: {
+    //   type: String,
+    // },
     image: {
       type: String,
       default:

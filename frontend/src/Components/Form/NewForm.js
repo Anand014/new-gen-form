@@ -2,6 +2,8 @@ import React from "react";
 import "./Form.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import orange from "../../assets/orange.svg";
+import purple from "../../assets/purple.svg";
 
 const NewForm = () => {
   const validationSchema = Yup.object({
@@ -18,8 +20,8 @@ const NewForm = () => {
       name: "",
       email: "",
       password: "",
-      currentJob: "",
-      description: "",
+      // currentJob: "",
+      // description: "",
     },
     validationSchema,
   });
@@ -30,12 +32,14 @@ const NewForm = () => {
 
   return (
     <div id="signinfrom" className="flex justify-center items-center">
+      <img className="orangesvg" src={orange} />
+      <img className="purplesvg" src={purple} />
       <div className="glasseffect flex justify-center items-center">
         <form className="flex flex-col leading-8 m-5" onSubmit={submitHandler}>
-          <h1 className="text-2xl flex justify-center my-2  text-white">
+          <h1 className="text-2xl flex justify-center my-2 formtext">
             Register
           </h1>
-          <label className="text-white" htmlFor="name">
+          <label className="formtext" htmlFor="name">
             Name
           </label>
           <input
@@ -48,14 +52,14 @@ const NewForm = () => {
           ></input>
 
           {formik.touched.name && formik.errors.name ? (
-            <div class="text-red-600 px-1 rounded relative">
-              <span class="inline-block align-middle">
+            <div class="text-red-100 px-1 rounded relative">
+              <span class="inline-block align-middle text-sm">
                 {formik.errors.name}
               </span>
             </div>
           ) : null}
 
-          <label className="text-white mt-5" htmlFor="email">
+          <label className="formtext mt-5" htmlFor="email">
             Email
           </label>
           <input
@@ -67,13 +71,13 @@ const NewForm = () => {
             value={formik.values.email}
           ></input>
           {formik.touched.email && formik.errors.email ? (
-            <div class="text-red-600 px-1 rounded relative">
-              <span class="inline-block align-middle">
+            <div class="text-red-100 px-1 rounded relative">
+              <span class="inline-block align-middle text-sm">
                 {formik.errors.email}
               </span>
             </div>
           ) : null}
-          <label className="text-white mt-5" htmlFor="password">
+          <label className="formtext mt-5" htmlFor="password">
             Password
           </label>
           <input
@@ -85,13 +89,13 @@ const NewForm = () => {
             value={formik.values.password}
           ></input>
           {formik.touched.password && formik.errors.password ? (
-            <div class="text-red-600 px-1 rounded relative">
-              <span class="inline-block align-middle">
+            <div class="text-red-100 px-1 rounded relative">
+              <span class="inline-block align-middle text-sm">
                 {formik.errors.password}
               </span>
             </div>
           ) : null}
-          <label className="text-white mt-5" htmlFor="currentJob">
+          {/* <label className="text-white mt-5" htmlFor="currentJob">
             Current Job
           </label>
           <input
@@ -112,9 +116,9 @@ const NewForm = () => {
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             value={formik.values.description}
-          ></textarea>
+          ></textarea> */}
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-2 mt-5"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 rounded my-2 mt-10"
             type="submit"
           >
             Submit
