@@ -59,36 +59,28 @@ const Navbar = () => {
                       src={green}
                       alt="Mainlogo"
                     />
+
                     <img
                       class="hidden lg:block h-8 w-auto"
                       src={green}
                       alt="Mainlogo"
                     />
-                    <h1 className="font-black p-2">Lucky Gems</h1>
+                    <h1 className="font-black block p-2">Lucky Gems</h1>
                   </div>
                 </div>
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   <div class="hidden sm:block">
                     <div class="flex space-x-4">
-                      {/* <a
-                        href="#"
-                        class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
-                      > */}
-                      <div className="flex justify-center px-3 py-2 mr-3">
-                        <h4 className="formtext mr-2 p-1">0</h4>
-                        <img className=" rounded-md" src={purple} />
+                      <div className="flex justify-center">
+                        {/* purple gems count value */}
+                        <h4 className="formtext mr-2">100</h4>
+                        <img className="h-7 rounded-md" src={purple} />
                       </div>
-
-                      {/* </a> */}
-                      {/* <a
-                        href="#"
-                        class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
-                      > */}
-                      <div className="flex justify-center px-3 py-2">
-                        <h4 className="formtext mr-2 p-1">0</h4>
-                        <img className=" rounded-md" src={orange} />
+                      <div className="flex justify-center">
+                        {/* orange gems count value */}
+                        <h4 className="formtext  mr-2">50</h4>
+                        <img className="h-7 rounded-md" src={orange} />
                       </div>
-                      {/* </a> */}
                     </div>
                   </div>
                   <div class="ml-10 relative">
@@ -108,7 +100,7 @@ const Navbar = () => {
                     </div>
 
                     {/* <div
-                      class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5"
+                      class="origin-top-right absolute right-0 mt-2 w-48 rounded-md z-50 shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5"
                       role="menu"
                       aria-orientation="vertical"
                       aria-labelledby="user-menu"
