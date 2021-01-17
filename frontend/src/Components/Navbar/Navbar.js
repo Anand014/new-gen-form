@@ -3,6 +3,8 @@ import "./Navbar.css";
 import green from "./../../assets/green.svg";
 import purple from "./../../assets/purple.svg";
 import orange from "./../../assets/orange.svg";
+import plus from "./../../assets/plusCircle.svg";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -65,22 +67,30 @@ const Navbar = () => {
                       src={green}
                       alt="Mainlogo"
                     />
-                    <h1 className="font-black block p-2">Lucky Gems</h1>
+                    <Link to="/">
+                      <h1 className="font-black block p-2">Lucky Gems</h1>
+                    </Link>
                   </div>
                 </div>
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   <div class="hidden sm:block">
                     <div class="flex space-x-4">
                       <div className="flex justify-center">
-                        {/* purple gems count value */}
-                        <h4 className="formtext mr-2">100</h4>
+                        <Link to="/addgems">
+                          {" "}
+                          <img
+                            className="pr-2 mb-1 cursor-pointer fill-current text-white"
+                            src={plus}
+                          />
+                        </Link>
+
+                        <h4 className="formtext font-bold mr-2">0</h4>
                         <img className="h-7 rounded-md" src={purple} />
                       </div>
-                      <div className="flex justify-center">
-                        {/* orange gems count value */}
+                      {/* <div className="flex justify-center">
                         <h4 className="formtext  mr-2">50</h4>
                         <img className="h-7 rounded-md" src={orange} />
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                   <div class="ml-10 relative">

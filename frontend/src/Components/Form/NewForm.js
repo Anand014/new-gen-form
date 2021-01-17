@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import orange from "../../assets/orange.svg";
 import purple from "../../assets/purple.svg";
+import { Link } from "react-router-dom";
 
 const NewForm = () => {
   const validationSchema = Yup.object({
@@ -36,14 +37,14 @@ const NewForm = () => {
       <img className="purplesvg" src={purple} />
       <div className="glasseffect flex justify-center items-center">
         <form className="flex flex-col leading-8 m-5" onSubmit={submitHandler}>
-          <h1 className="text-2xl flex justify-center my-2 formtext">
+          <h1 className="text-2xl flex font-bold justify-center my-2 formtext">
             Register
           </h1>
-          <label className="formtext" htmlFor="name">
+          <label className="text-yellow-50" htmlFor="name">
             Name
           </label>
           <input
-            className="w-80 rounded-lg shadow-md"
+            className="w-80 rounded-lg shadow-md pl-2"
             type="text"
             name="name"
             onBlur={formik.handleBlur}
@@ -59,11 +60,11 @@ const NewForm = () => {
             </div>
           ) : null}
 
-          <label className="formtext mt-5" htmlFor="email">
+          <label className="text-yellow-50 mt-5" htmlFor="email">
             Email
           </label>
           <input
-            className="w-80 rounded-lg shadow-md"
+            className="w-80 rounded-lg shadow-md pl-2"
             type="email"
             name="email"
             onBlur={formik.handleBlur}
@@ -77,11 +78,11 @@ const NewForm = () => {
               </span>
             </div>
           ) : null}
-          <label className="formtext mt-5" htmlFor="password">
+          <label className="text-yellow-50 mt-5" htmlFor="password">
             Password
           </label>
           <input
-            className="w-80 rounded-lg shadow-md"
+            className="w-80 rounded-lg shadow-md pl-2"
             type="password"
             name="password"
             onBlur={formik.handleBlur}
@@ -123,6 +124,12 @@ const NewForm = () => {
           >
             Submit
           </button>
+          <div className="text-sm ml-auto mt-2 text-yellow-50">
+            Have an Account?{" "}
+            <Link className="text-purple-500" to="/login">
+              Login
+            </Link>
+          </div>
         </form>
       </div>
     </div>
