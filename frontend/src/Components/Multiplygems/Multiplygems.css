@@ -1,0 +1,55 @@
+.midbox {
+  position: relative;
+  overflow: hidden;
+}
+
+.midbox::after {
+  content: "";
+  position: absolute;
+  /* bottom: -100%; */
+  /* left: -50%; */
+  width: 100%;
+  height: 100%;
+  /* border-radius: 45%; */
+  background: rgb(232, 232, 232, 0.6);
+
+  /* animation: onbet 6s ease-in-out infinite; */
+  z-index: 1;
+  /* bottom: -90%; */
+}
+
+/* @keyframes onbet {
+  0% {
+    transform: translateY(0);
+  }
+  10% {
+    transform: translateY(-10%);
+  }
+  20% {
+    transform: translateY(-20%);
+  }
+  30% {
+    transform: translateY(-30%);
+  }
+  40% {
+    transform: translateY(-40%);
+  }
+  50% {
+    transform: translateY(-50%);
+  }
+  60% {
+    transform: translateY(-60%);
+  }
+  70% {
+    transform: translateY(-70%);
+  }
+  80% {
+    transform: translateY(-80%);
+  }
+  90% {
+    transform: translateY(-90%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+} */
