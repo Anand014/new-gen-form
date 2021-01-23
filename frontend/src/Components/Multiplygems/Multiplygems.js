@@ -14,6 +14,7 @@ const Multiplygems = () => {
   const [addGems, setAddGems] = useState("");
   const [multiplier, setMultiplier] = useState("");
   const [winRate, setWinRate] = useState("0.000");
+  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     if (multiplier !== "") {
@@ -23,6 +24,12 @@ const Multiplygems = () => {
       console.log(percent);
     }
   }, [multiplier]);
+
+  useEffect(() => {
+    if (currentUser === null) {
+      return <Redirect to="/login" />;
+    }
+  });
 
   const handleTen = () => {
     setAddGems(10);
@@ -74,10 +81,7 @@ const Multiplygems = () => {
       setMultiplier(multiply);
     }
   };
-  const { currentUser } = useContext(AuthContext);
-  if (currentUser === null) {
-    return <Redirect to="/login" />;
-  }
+
   return (
     <>
       <Navbar />

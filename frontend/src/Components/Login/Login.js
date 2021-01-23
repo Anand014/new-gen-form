@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import orange from "../../assets/orange.svg";
@@ -9,6 +9,9 @@ import { AuthContext } from "../../Utility/AuthContext";
 
 const Login = () => {
   const history = useHistory();
+  const { currentUser } = useContext(AuthContext);
+
+  useEffect(() => {});
 
   const validationSchema = Yup.object({
     email: Yup.string().email("Invalid email format!").required("Required!"),
@@ -26,15 +29,15 @@ const Login = () => {
     onSubmit: async (values) => {
       const loginStatus = await loginUser(values);
       if (loginStatus) {
-        window.location.assign("/");
+        history.push("/");
       }
     },
     validationSchema,
   });
-  const { currentUser } = useContext(AuthContext);
   if (currentUser) {
     return <Redirect to="/" />;
   }
+
   return (
     <>
       <div id="signinfrom" className="flex justify-center items-center">

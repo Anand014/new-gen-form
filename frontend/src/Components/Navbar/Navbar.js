@@ -1,21 +1,32 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Navbar.css";
 import green from "./../../assets/green.svg";
 import purple from "./../../assets/purple.svg";
 import orange from "./../../assets/orange.svg";
 import plus from "./../../assets/plusCircle.svg";
-import { Link, useHistory } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { Transition } from "@tailwindui/react";
+import { AuthContext } from "../../Utility/AuthContext";
 
 const Navbar = () => {
   const history = useHistory();
   const [profileToggle, setProfileToggle] = useState(false);
   const [hamburgerMenuToggle, setHamburgerMenuToggle] = useState(false);
   const [name, setName] = useState(`${localStorage.getItem("name")}`);
+  const [image, setimage] = useState(`${localStorage.getItem("image")}`);
+  const [gems, setGems] = useState(`${localStorage.getItem("gems")}`);
+  const { currentUser } = useContext(AuthContext);
 
+  useEffect(() => {
+    if (currentUser === null) {
+      return <Redirect to="/login" />;
+    }
+  });
   const handleLogOut = () => {
-    localStorage.clear();
-    history.push("/login");
+    try {
+      localStorage.clear();
+      history.push("/login");
+    } catch (error) {}
   };
 
   return (
@@ -96,7 +107,7 @@ const Navbar = () => {
                           />
                         </Link>
 
-                        <h4 className="formtext font-bold mr-2">0</h4>
+                        <h4 className="formtext font-bold mr-2">{gems}</h4>
                         <img className="h-7 rounded-md" src={purple} />
                       </div>
                       {/* <div className="flex justify-center">
@@ -125,7 +136,7 @@ const Navbar = () => {
 
                           <img
                             className="m-0 h-8 w-8 rounded-full sm:m-1"
-                            src="https://images.pexels.com/photos/2804282/pexels-photo-2804282.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                            src={image}
                             alt=""
                           />
                         </button>
@@ -147,7 +158,7 @@ const Navbar = () => {
 
                           <img
                             className="m-0 h-8 w-8 rounded-full sm:m-1"
-                            src="https://images.pexels.com/photos/2804282/pexels-photo-2804282.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                            src={image}
                             alt=""
                           />
                         </button>
