@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import orange from "../../assets/orange.svg";
@@ -9,9 +9,12 @@ import { AuthContext } from "../../Utility/AuthContext";
 
 const Login = () => {
   const history = useHistory();
+  const [login, setLogin] = useState(false);
   const { currentUser } = useContext(AuthContext);
 
-  useEffect(() => {});
+  useEffect(() => {
+    login && history.go("/");
+  }, [login]);
 
   const validationSchema = Yup.object({
     email: Yup.string().email("Invalid email format!").required("Required!"),
@@ -28,12 +31,13 @@ const Login = () => {
     },
     onSubmit: async (values) => {
       const loginStatus = await loginUser(values);
-      if (loginStatus) {
-        history.push("/");
+      if (loginStatus === true) {
+        setLogin(true);
       }
     },
     validationSchema,
   });
+
   if (currentUser) {
     return <Redirect to="/" />;
   }

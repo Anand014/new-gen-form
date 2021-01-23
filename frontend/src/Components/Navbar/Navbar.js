@@ -23,10 +23,8 @@ const Navbar = () => {
     }
   });
   const handleLogOut = () => {
-    try {
-      localStorage.clear();
-      history.push("/login");
-    } catch (error) {}
+    localStorage.clear();
+    history.go("/login");
   };
 
   return (
@@ -203,7 +201,15 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
-            {hamburgerMenuToggle && (
+            <Transition
+              show={hamburgerMenuToggle}
+              enter="transition ease-out duration-300"
+              enterFrom="transform opacity-0 scale-50"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-300"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-50"
+            >
               <div className="block sm:hidden">
                 <div className="px-2 pt-2 pb-3 space-y-1">
                   <a
@@ -220,7 +226,7 @@ const Navbar = () => {
                   </a>
                 </div>
               </div>
-            )}
+            </Transition>
           </nav>
         </div>
       </div>

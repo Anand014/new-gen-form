@@ -5,6 +5,8 @@ import "./Multiplygems.css";
 import Navbar from "../Navbar/Navbar";
 import { AuthContext } from "../../Utility/AuthContext";
 import { Redirect } from "react-router-dom";
+import { ButtonData } from "./ButtonData";
+import { MultiplierButtonData } from "./MultiplierButtonData";
 
 const header = {
   headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -25,59 +27,18 @@ const Multiplygems = () => {
     }
   }, [multiplier]);
 
-  useEffect(() => {
-    if (currentUser === null) {
-      return <Redirect to="/login" />;
-    }
-  });
+  if (!currentUser) {
+    return <Redirect to="/login" />;
+  }
 
-  const handleTen = () => {
-    setAddGems(10);
+  const handleButtonData = (value) => {
+    setAddGems(value);
   };
-  const handleTwenty = () => {
-    setAddGems(20);
-  };
-  const handleFifty = () => {
-    setAddGems(50);
-  };
-  const handleHundred = () => {
-    setAddGems(100);
-  };
-  const handleTwoHundred = () => {
-    setAddGems(200);
-  };
-  const handleMultiplierone = () => {
+
+  const handleMultiplier = (value) => {
     if (addGems !== "") {
       let multiply;
-      multiply = 1.5 * addGems;
-      setMultiplier(multiply);
-    }
-  };
-  const handleMultiplierTwo = () => {
-    if (addGems !== "") {
-      let multiply;
-      multiply = 2 * addGems;
-      setMultiplier(multiply);
-    }
-  };
-  const handleMultiplierFive = () => {
-    if (addGems !== "") {
-      let multiply;
-      multiply = 5 * addGems;
-      setMultiplier(multiply);
-    }
-  };
-  const handleMultiplierTen = () => {
-    if (addGems !== "") {
-      let multiply;
-      multiply = 10 * addGems;
-      setMultiplier(multiply);
-    }
-  };
-  const handleMultiplierTwenty = () => {
-    if (addGems !== "") {
-      let multiply;
-      multiply = 20 * addGems;
+      multiply = value * addGems;
       setMultiplier(multiply);
     }
   };
@@ -105,36 +66,16 @@ const Multiplygems = () => {
                   />
                 </div>
                 <div className="flex flex-row mt-2">
-                  <button
-                    className="w-12 bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 m-2 rounded"
-                    onClick={handleTen}
-                  >
-                    10
-                  </button>
-                  <button
-                    className="w-12 bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 m-2 rounded"
-                    onClick={handleTwenty}
-                  >
-                    20
-                  </button>
-                  <button
-                    className="w-12 bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 m-2 rounded"
-                    onClick={handleFifty}
-                  >
-                    50
-                  </button>
-                  <button
-                    className="w-12 bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 m-2 rounded"
-                    onClick={handleHundred}
-                  >
-                    100
-                  </button>
-                  <button
-                    className="w-12 bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 m-2 rounded"
-                    onClick={handleTwoHundred}
-                  >
-                    200
-                  </button>
+                  {ButtonData &&
+                    ButtonData.map((data) => (
+                      <button
+                        className="w-10 p-1 m-1 xl:w-12 xl:p-2 xl:m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded"
+                        onClick={() => handleButtonData(data.value)}
+                        key={data.key}
+                      >
+                        {data.value}
+                      </button>
+                    ))}
                 </div>
               </div>
             </div>
@@ -172,36 +113,16 @@ const Multiplygems = () => {
                 </div>
                 {/* </div> */}
                 <div className="flex flex-row mt-2">
-                  <button
-                    className="w-12 bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 m-2 rounded"
-                    onClick={handleMultiplierone}
-                  >
-                    1.5x
-                  </button>
-                  <button
-                    className="w-12 bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 m-2 rounded"
-                    onClick={handleMultiplierTwo}
-                  >
-                    2x
-                  </button>
-                  <button
-                    className="w-12 bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 m-2 rounded"
-                    onClick={handleMultiplierFive}
-                  >
-                    5x
-                  </button>
-                  <button
-                    className="w-12 bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 m-2 rounded"
-                    onClick={handleMultiplierTen}
-                  >
-                    10x
-                  </button>
-                  <button
-                    className="w-12 bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 m-2 rounded"
-                    onClick={handleMultiplierTwenty}
-                  >
-                    20x
-                  </button>
+                  {MultiplierButtonData &&
+                    MultiplierButtonData.map((multiplierData) => (
+                      <button
+                        className="w-10 p-1 m-1 xl:w-12 xl:p-2 xl:m-2  bg-blue-500 hover:bg-blue-700 text-white font-bold rounded"
+                        onClick={() => handleMultiplier(multiplierData.value)}
+                        key={multiplierData.key}
+                      >
+                        {multiplierData.value}x
+                      </button>
+                    ))}
                 </div>
               </div>
             </div>

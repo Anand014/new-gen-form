@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import "./ShowUser.css";
+import "./AddGems.css";
 import purple from "../../assets/purple.svg";
 import Navbar from "../Navbar/Navbar";
 import { Redirect } from "react-router-dom";
 import { AuthContext } from "../../Utility/AuthContext";
 import { Transition } from "@tailwindui/react";
 
-const date = new Date();
 const Addgems = () => {
   const [gems, setGems] = useState(1);
   const [price, setPrice] = useState(5);
@@ -23,14 +22,12 @@ const Addgems = () => {
     setPrice(totalprice);
   }, [gems]);
 
-  useEffect(() => {
-    if (currentUser === null) {
-      return <Redirect to="/login" />;
-    }
-  });
   const handleLuckyPayment = () => {
     //payment
   };
+  if (!currentUser) {
+    return <Redirect to="/login" />;
+  }
   return (
     <>
       <Transition
