@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import orange from "../../assets/orange.svg";
 import purple from "../../assets/purple.svg";
-import { Link } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { loginUser } from "../../Api/Api";
+import { AuthContext } from "../../Utility/AuthContext";
 
 const Login = () => {
+  const history = useHistory();
+
   const validationSchema = Yup.object({
     email: Yup.string().email("Invalid email format!").required("Required!"),
     password: Yup.string()
@@ -20,12 +23,18 @@ const Login = () => {
       email: "",
       password: "",
     },
-    onSubmit: (values) => {
-      loginUser(values);
+    onSubmit: async (values) => {
+      const loginStatus = await loginUser(values);
+      if (loginStatus) {
+        window.location.assign("/");
+      }
     },
     validationSchema,
   });
-
+  const { currentUser } = useContext(AuthContext);
+  if (currentUser) {
+    return <Redirect to="/" />;
+  }
   return (
     <>
       <div id="signinfrom" className="flex justify-center items-center">
@@ -43,7 +52,7 @@ const Login = () => {
               Email
             </label>
             <input
-              className="w-80 rounded-lg shadow-md pl-2"
+              className="w-80 rounded-lg shadow-md pl-2 focus:outline-none"
               type="email"
               name="email"
               onBlur={formik.handleBlur}
@@ -51,8 +60,8 @@ const Login = () => {
               value={formik.values.email}
             ></input>
             {formik.touched.email && formik.errors.email ? (
-              <div class="text-red-100 px-1 rounded relative">
-                <span class="inline-block align-middle text-sm">
+              <div className="text-red-100 px-1 rounded relative">
+                <span className="inline-block align-middle text-sm">
                   {formik.errors.email}
                 </span>
               </div>
@@ -61,7 +70,7 @@ const Login = () => {
               Password
             </label>
             <input
-              className="w-80 rounded-lg shadow-md pl-2"
+              className="w-80 rounded-lg shadow-md pl-2 focus:outline-none"
               type="password"
               name="password"
               onBlur={formik.handleBlur}
@@ -69,8 +78,8 @@ const Login = () => {
               value={formik.values.password}
             ></input>
             {formik.touched.password && formik.errors.password ? (
-              <div class="text-red-100 px-1 rounded relative">
-                <span class="inline-block align-middle text-sm">
+              <div className="text-red-100 px-1 rounded relative">
+                <span className="inline-block align-middle text-sm">
                   {formik.errors.password}
                 </span>
               </div>
@@ -83,7 +92,7 @@ const Login = () => {
             </button>
             <div className="text-sm ml-auto mt-2 text-yellow-50">
               New to Lucky Gems?{" "}
-              <Link className="text-purple-500" to="/">
+              <Link className="text-purple-500" to="/register">
                 Register
               </Link>
             </div>

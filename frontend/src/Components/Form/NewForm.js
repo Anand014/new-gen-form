@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Form.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import orange from "../../assets/orange.svg";
 import purple from "../../assets/purple.svg";
-import { Link, useHistory } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { registerUser } from "../../Api/Api";
+import { AuthContext } from "../../Utility/AuthContext";
 
 const NewForm = () => {
   const history = useHistory();
@@ -29,6 +30,10 @@ const NewForm = () => {
     },
     validationSchema,
   });
+  const { currentUser } = useContext(AuthContext);
+  if (currentUser) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <div id="signinfrom" className="flex justify-center items-center">
@@ -46,7 +51,7 @@ const NewForm = () => {
             Name
           </label>
           <input
-            className="w-80 rounded-lg shadow-md pl-2"
+            className="w-80 rounded-lg shadow-md pl-2 focus:outline-none"
             type="text"
             name="name"
             onBlur={formik.handleBlur}
@@ -66,7 +71,7 @@ const NewForm = () => {
             Email
           </label>
           <input
-            className="w-80 rounded-lg shadow-md pl-2"
+            className="w-80 rounded-lg shadow-md pl-2 focus:outline-none"
             type="email"
             name="email"
             onBlur={formik.handleBlur}
@@ -84,7 +89,7 @@ const NewForm = () => {
             Password
           </label>
           <input
-            className="w-80 rounded-lg shadow-md pl-2"
+            className="w-80 rounded-lg shadow-md pl-2 focus:outline-none"
             type="password"
             name="password"
             onBlur={formik.handleBlur}

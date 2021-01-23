@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import purple from "../../assets/purple.svg";
 import crystal from "../../assets/crystal.svg";
 import "./Multiplygems.css";
 import Navbar from "../Navbar/Navbar";
+import { AuthContext } from "../../Utility/AuthContext";
+import { Redirect } from "react-router-dom";
+
+const header = {
+  headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+};
 
 const Multiplygems = () => {
   const [addGems, setAddGems] = useState("");
@@ -68,15 +74,18 @@ const Multiplygems = () => {
       setMultiplier(multiply);
     }
   };
-
+  const { currentUser } = useContext(AuthContext);
+  if (currentUser === null) {
+    return <Redirect to="/login" />;
+  }
   return (
     <>
       <Navbar />
-      <div className="flex justify-center">
+      <div className="flex justify-center static z-10">
         <div className="glasseffectuser w-4/5 p-5">
           <div className="grid grid-cols-1 lg:grid-cols-3">
             <div className="rounded bg-yellow-50 shadow-lg bg-opacity-50">
-              <div class="grid justify-items-center">
+              <div className="grid justify-items-center">
                 <h1 className="text-2xl font-bold my-2 formtext">Your Gems</h1>
                 <img className="w-1/3" src={purple} />
                 <div className="">
@@ -91,7 +100,7 @@ const Multiplygems = () => {
                     onChange={(e) => setAddGems(e.target.value)}
                   />
                 </div>
-                <div class="flex flex-row mt-2">
+                <div className="flex flex-row mt-2">
                   <button
                     className="w-12 bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 m-2 rounded"
                     onClick={handleTen}
@@ -126,7 +135,7 @@ const Multiplygems = () => {
               </div>
             </div>
             <div className="w-3/4 rounded bg-yellow-50 bg-opacity-50 shadow-lg justify-self-center m-2 midbox">
-              <div class="grid justify-items-center">
+              <div className="grid justify-items-center">
                 <h1 className="text-xl formtext font-black text-white my-2 mt-32 mb-32 z-10">
                   {winRate}%
                 </h1>
@@ -139,7 +148,7 @@ const Multiplygems = () => {
               </div>
             </div>
             <div className="rounded bg-yellow-50 bg-opacity-50 shadow-lg">
-              <div class="grid justify-items-center">
+              <div className="grid justify-items-center">
                 <h1 className="text-2xl font-bold my-2 formtext">Upgrade</h1>
                 <img className="w-1/3" src={crystal} />
                 {/* <div className="grid grid-cols-2 justify-items-center mt-2"> */}
@@ -158,7 +167,7 @@ const Multiplygems = () => {
                   </h4>
                 </div>
                 {/* </div> */}
-                <div class="flex flex-row mt-2">
+                <div className="flex flex-row mt-2">
                   <button
                     className="w-12 bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 m-2 rounded"
                     onClick={handleMultiplierone}

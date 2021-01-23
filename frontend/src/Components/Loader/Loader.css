@@ -1,0 +1,38 @@
+.progressbody {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+.progress {
+  background: rgba(255, 255, 255, 0.1);
+  justify-content: flex-start;
+  border-radius: 100px;
+  align-items: center;
+  position: relative;
+  padding: 0 5px;
+  display: flex;
+  height: 15px;
+  width: 500px;
+}
+
+.progress-value {
+  animation: load 1s ease-in-out infinite;
+  box-shadow: 0 10px 40px -10px rgba(255, 255, 255, 0.301);
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.493);
+  height: 7px;
+  width: 0;
+}
+
+@keyframes load {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
