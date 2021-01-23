@@ -4,9 +4,11 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import orange from "../../assets/orange.svg";
 import purple from "../../assets/purple.svg";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { registerUser } from "../../Api/Api";
 
 const NewForm = () => {
+  const history = useHistory();
   const validationSchema = Yup.object({
     name: Yup.string().required("Required!"),
     email: Yup.string().email("Invalid email format!").required("Required!"),
@@ -21,22 +23,22 @@ const NewForm = () => {
       name: "",
       email: "",
       password: "",
-      // currentJob: "",
-      // description: "",
+    },
+    onSubmit: (values) => {
+      registerUser(values);
     },
     validationSchema,
   });
-
-  const submitHandler = (e) => {
-    // register user
-  };
 
   return (
     <div id="signinfrom" className="flex justify-center items-center">
       <img className="orangesvg" src={orange} />
       <img className="purplesvg" src={purple} />
       <div className="glasseffect flex justify-center items-center">
-        <form className="flex flex-col leading-8 m-5" onSubmit={submitHandler}>
+        <form
+          className="flex flex-col leading-8 m-5"
+          onSubmit={formik.handleSubmit}
+        >
           <h1 className="text-2xl flex font-bold justify-center my-2 formtext">
             Register
           </h1>
@@ -53,8 +55,8 @@ const NewForm = () => {
           ></input>
 
           {formik.touched.name && formik.errors.name ? (
-            <div class="text-red-100 px-1 rounded relative">
-              <span class="inline-block align-middle text-sm">
+            <div className="text-red-100 px-1 rounded relative">
+              <span className="inline-block align-middle text-sm">
                 {formik.errors.name}
               </span>
             </div>
@@ -72,8 +74,8 @@ const NewForm = () => {
             value={formik.values.email}
           ></input>
           {formik.touched.email && formik.errors.email ? (
-            <div class="text-red-100 px-1 rounded relative">
-              <span class="inline-block align-middle text-sm">
+            <div className="text-red-100 px-1 rounded relative">
+              <span className="inline-block align-middle text-sm">
                 {formik.errors.email}
               </span>
             </div>
@@ -90,8 +92,8 @@ const NewForm = () => {
             value={formik.values.password}
           ></input>
           {formik.touched.password && formik.errors.password ? (
-            <div class="text-red-100 px-1 rounded relative">
-              <span class="inline-block align-middle text-sm">
+            <div className="text-red-100 px-1 rounded relative">
+              <span className="inline-block align-middle text-sm">
                 {formik.errors.password}
               </span>
             </div>

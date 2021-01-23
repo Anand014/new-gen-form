@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import orange from "../../assets/orange.svg";
 import purple from "../../assets/purple.svg";
 import { Link } from "react-router-dom";
+import { loginUser } from "../../Api/Api";
 
 const Login = () => {
   const validationSchema = Yup.object({
@@ -18,15 +19,12 @@ const Login = () => {
     initialValues: {
       email: "",
       password: "",
-      // currentJob: "",
-      // description: "",
+    },
+    onSubmit: (values) => {
+      loginUser(values);
     },
     validationSchema,
   });
-
-  const submitHandler = () => {
-    //login
-  };
 
   return (
     <>
@@ -36,7 +34,7 @@ const Login = () => {
         <div className="glasseffect flex justify-center items-center">
           <form
             className="flex flex-col leading-8 m-5"
-            onSubmit={submitHandler}
+            onSubmit={formik.handleSubmit}
           >
             <h1 className="text-2xl font-bold flex justify-center my-2 formtext">
               Login

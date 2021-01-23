@@ -22,9 +22,3 @@ function App() {
 }
 
 export default App;
-
-{
-  /* <NewForm />
-          <ShowUser />
-          <Multiplygems /> */
-}
