@@ -1,19 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./AddGems.css";
 import purple from "../../assets/purple.svg";
 import Navbar from "../Navbar/Navbar";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { AuthContext } from "../../Utility/AuthContext";
 import { Transition } from "@tailwindui/react";
+import axios from "axios";
+import { MinusCircle } from "react-feather";
 
 const Addgems = () => {
+  const history = useHistory();
   const [gems, setGems] = useState(1);
   const [price, setPrice] = useState(5);
   const [openPayment, setOpenPayment] = useState(false);
   const [cardNumber, setCardNumber] = useState();
   const [cardHolderName, setCardHolderName] = useState();
   const [cvvCode, setCvvCode] = useState();
-
+  const [userId, setUserId] = useState(localStorage.getItem("id"));
   const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
@@ -22,8 +25,24 @@ const Addgems = () => {
     setPrice(totalprice);
   }, [gems]);
 
-  const handleLuckyPayment = () => {
-    //payment
+  const handleLuckyPayment = (e) => {
+    e.preventDefault();
+    axios
+      .post("/lucky-api/payment", {
+        cardNumber,
+        cvvCode,
+        cardHolderName,
+        gems,
+        price,
+        userId,
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          localStorage.setItem("gems", res.data.UpdatedUser.gems);
+          history.go("/");
+        }
+      });
   };
   if (!currentUser) {
     return <Redirect to="/login" />;
@@ -40,10 +59,17 @@ const Addgems = () => {
         leaveTo="transform opacity-0 scale-95"
       >
         <div className="w-full flex justify-center flex-wrap content-center h-screen">
-          <div className="w-1/4 flex justify-center bg-white bg-opacity-80 rounded">
+          <div className="w-1/4 flex justify-center bg-white bg-opacity-50 shadow-md rounded">
+            <div
+              className="absolute mt-1 cursor-pointer"
+              style={{ marginLeft: "22rem" }}
+              onClick={() => setOpenPayment(!openPayment)}
+            >
+              <MinusCircle color="white" size={20} />
+            </div>
             <form
               className="flex flex-col leading-8 m-5"
-              // onSubmit={handleLuckyPayment}
+              onSubmit={(e) => handleLuckyPayment(e)}
             >
               <h1 className="text-2xl flex font-bold justify-center my-2 formtext">
                 LUCKY PAYMENT
@@ -67,7 +93,7 @@ const Addgems = () => {
                 className="w-80 rounded-lg shadow-md pl-2 focus:outline-none"
                 type="number"
                 name="CvvCode"
-                placeholder="1234"
+                placeholder="123"
                 onChange={(e) => setCvvCode(e.target.value)}
                 value={cvvCode}
                 required
@@ -89,7 +115,6 @@ const Addgems = () => {
               <button
                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 rounded my-2 mt-5"
                 type="submit"
-                onClick={() => setOpenPayment(!openPayment)}
               >
                 PAY
               </button>
