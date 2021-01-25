@@ -13,10 +13,6 @@ app.use(cors());
 
 connectDB();
 
-app.get("/", (req, res) => {
-  res.send("Api is running!");
-});
-
 app.post("/lucky-api/payment", async (req, res) => {
   const { cardNumber, cvvCode, cardHolderName, gems, price, userId } = req.body;
   const paymentToken = process.env.LUCKY_PAYMENT_TOKEN;
