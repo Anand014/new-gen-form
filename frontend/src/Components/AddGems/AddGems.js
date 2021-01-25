@@ -39,7 +39,7 @@ const Addgems = () => {
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
-          localStorage.setItem("gems", res.data.UpdatedUser.gems);
+          localStorage.setItem("gems", res.data.updatedUser.gems);
           history.go("/");
         }
       });
@@ -158,7 +158,9 @@ const Addgems = () => {
                     </h1>
                     <button
                       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded my-2 uppercase"
-                      onClick={() => setOpenPayment(true)}
+                      onClick={() =>
+                        gems !== "" && gems !== "0" && setOpenPayment(true)
+                      }
                     >
                       Add Gems
                     </button>

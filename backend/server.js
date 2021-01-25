@@ -23,25 +23,21 @@ app.post("/lucky-api/payment", async (req, res) => {
     const user = await User.findById(userId);
     const oldGems = user.gems;
     const newGems = oldGems + Number(gems);
-    User.findByIdAndUpdate(
-      userId,
-      { gems: newGems },
-      function (err, UpdatedUser) {
-        if (err) {
-          console.log(err);
-          res.status(404).json({
-            status: "error",
-            message: "Deducted Amount will be soon revert!",
-          });
-        } else {
-          res.status(200).json({
-            status: "Success",
-            paymentToken,
-            UpdatedUser,
-          });
-        }
-      }
-    );
+    await User.findByIdAndUpdate(userId, { gems: newGems });
+    const updatedUser = await User.findById(userId);
+
+    if (updatedUser) {
+      res.status(200).json({
+        status: "Success",
+        paymentToken,
+        updatedUser,
+      });
+    } else {
+      res.status(404).json({
+        status: "error",
+        message: "Deducted Amount will be soon revert!",
+      });
+    }
   } else {
     res.status(400).json({
       status: "error!",
