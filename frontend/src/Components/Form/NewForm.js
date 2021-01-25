@@ -15,7 +15,7 @@ const NewForm = () => {
     email: Yup.string().email("Invalid email format!").required("Required!"),
     password: Yup.string()
       .min(8, "Password is too short!")
-      .matches(/[a-zA-Z]/, "Password can only contain Latin letters!")
+      .matches(/[a-zA-Z]/, "Password must contain letters!")
       .required("Required!"),
   });
 

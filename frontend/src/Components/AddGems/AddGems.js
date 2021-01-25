@@ -6,6 +6,7 @@ import { Redirect, useHistory } from "react-router-dom";
 import { AuthContext } from "../../Utility/AuthContext";
 import { Transition } from "@tailwindui/react";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { MinusCircle } from "react-feather";
 
 const Addgems = () => {
@@ -42,6 +43,23 @@ const Addgems = () => {
           localStorage.setItem("gems", res.data.updatedUser.gems);
           history.go("/");
         }
+      })
+      .catch((err) => {
+        console.dir(err);
+        if (err.response.status === 400) {
+          Swal.fire({
+            icon: "info",
+            title: "Try 16 digits card number and 3 digits cvv code.",
+            showConfirmButton: true,
+          });
+        } else if (err.response.status === 404) {
+          Swal.fire({
+            icon: "error",
+            title: "Server down!! Please try again later",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
       });
   };
   if (!currentUser) {
@@ -59,10 +77,10 @@ const Addgems = () => {
         leaveTo="transform opacity-0 scale-95"
       >
         <div className="w-full flex justify-center flex-wrap content-center h-screen">
-          <div className="w-1/4 flex justify-center bg-white bg-opacity-50 shadow-md rounded">
+          <div className="w-1/4 min-w-min flex justify-center bg-white bg-opacity-50 shadow-md rounded">
             <div
-              className="absolute mt-1 cursor-pointer"
-              style={{ marginLeft: "22rem" }}
+              className="absolute mt-2 cursor-pointer"
+              style={{ marginLeft: "19rem" }}
               onClick={() => setOpenPayment(!openPayment)}
             >
               <MinusCircle color="white" size={20} />
