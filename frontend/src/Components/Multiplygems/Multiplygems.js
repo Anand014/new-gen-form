@@ -36,6 +36,8 @@ const Multiplygems = () => {
 
   const handleButtonData = (value) => {
     setAddGems(value);
+    setMultiplier("");
+    setWinRate("0.000");
   };
 
   const handleMultiplier = (value) => {
@@ -63,10 +65,14 @@ const Multiplygems = () => {
       if (updatedUser) {
         if (updatedUser.data.gems > localGems) {
           localStorage.setItem("gems", updatedUser.data.gems);
-          setMessage("win");
+          setTimeout(() => {
+            setMessage("win");
+          }, 3000);
         } else if (updatedUser.data.gems < localGems) {
           localStorage.setItem("gems", updatedUser.data.gems);
-          setMessage("lose");
+          setTimeout(() => {
+            setMessage("lose");
+          }, 3000);
         } else {
           Swal.fire({
             icon: "error",
@@ -79,8 +85,10 @@ const Multiplygems = () => {
     }
     setTimeout(() => {
       setMessage("");
-    }, 1500);
-    setToggle(false);
+    }, 5000);
+    setTimeout(() => {
+      setToggle(false);
+    }, 3000);
   };
 
   return (
@@ -133,7 +141,7 @@ const Multiplygems = () => {
                   </h1>
                 )}
                 {message === "win" && (
-                  <h1 className="text-xl font-black text-green-500 my-2 mt-32 mb-32 z-10">
+                  <h1 className="text-xl  font-black text-green-500 my-2 mt-32 mb-32 z-10">
                     Congrats You Won!!!
                   </h1>
                 )}
