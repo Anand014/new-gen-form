@@ -11,10 +11,6 @@ Milestone:-
 
 1. Generate payment id and save them in user db. So that they can check all their transactions.
 2. Make protected route for fake payment and gem multiplier.(Verify jwt tokens).
-3. Add logic to winning and losing gems.
-4. Error Handling.
-5. Check renders
-6. Animations after clicking upgrade button.
 7. Create fake withdrawal money Route
 
 
