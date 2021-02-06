@@ -70,3 +70,39 @@ const sendTokenResponse = (user, statusCode, res) => {
     user,
   });
 };
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+exports.gemsMultiplier = asyncHandler(async (req, res, next) => {
+  let { id, addGems, multiplier } = req.body;
+  let user = await User.findById(id);
+  let winPercent = multiplier / addGems;
+  if (addGems <= user.gems) {
+    let number = getRandomInt(winPercent);
+    if (winPercent === 1.5) {
+      let randomWin = getRandomInt(2);
+      if (randomWin === 0) {
+        await User.findOneAndUpdate({
+          _id: id,
+          gems: user.gems + multiplier,
+        });
+      }
+    } else if (number === 0) {
+      await User.findOneAndUpdate({
+        _id: id,
+        gems: user.gems + multiplier,
+      });
+    } else {
+      await User.findOneAndUpdate({
+        _id: id,
+        gems: user.gems - addGems,
+      });
+    }
+  } else {
+    return next(new Error("Gems not found", 404));
+  }
+  let updatedUser = await User.findById(id);
+  res.send(updatedUser);
+});

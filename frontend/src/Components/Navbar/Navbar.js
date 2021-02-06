@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import "./Navbar.css";
 import green from "./../../assets/green.svg";
 import purple from "./../../assets/purple.svg";
-import orange from "./../../assets/orange.svg";
 import plus from "./../../assets/plusCircle.svg";
+import pluswhite from "./../../assets/plus-circle-white.svg";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import { Transition } from "@tailwindui/react";
 import { AuthContext } from "../../Utility/AuthContext";
@@ -22,6 +22,10 @@ const Navbar = () => {
       return <Redirect to="/login" />;
     }
   });
+  useEffect(() => {
+    setGems(`${localStorage.getItem("gems")}`);
+  });
+
   const handleLogOut = () => {
     localStorage.clear();
     history.go("/login");
@@ -212,18 +216,17 @@ const Navbar = () => {
             >
               <div className="block sm:hidden">
                 <div className="px-2 pt-2 pb-3 space-y-1">
-                  <a
-                    href="#"
-                    className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
-                  >
-                    Gems
-                  </a>
-                  <a
-                    href="#"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                  >
-                    Your Gems
-                  </a>
+                  <div className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium flex flex-row justify-between">
+                    <img className="h-7 rounded-md" src={purple} />
+                    <Link to="/addgems">
+                      {" "}
+                      <img
+                        className="pr-2 mb-1 cursor-pointer fill-current text-white"
+                        src={pluswhite}
+                      />
+                    </Link>
+                    <div>{gems}</div>
+                  </div>
                 </div>
               </div>
             </Transition>

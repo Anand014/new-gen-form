@@ -68,3 +68,30 @@ export const loginUser = async (data) => {
 
   return login;
 };
+
+export const gambleGems = async (id, addGems, multiplier, winRate) => {
+  let response;
+
+  try {
+    await axios
+      .post(
+        "/lucky-api/users/gamblegems",
+        {
+          id,
+          addGems,
+          multiplier,
+          winRate,
+        },
+        header
+      )
+      .then((res) => {
+        response = res;
+      })
+      .catch((err) => {
+        response = err;
+      });
+  } catch (error) {
+    response = error;
+  }
+  return response;
+};
